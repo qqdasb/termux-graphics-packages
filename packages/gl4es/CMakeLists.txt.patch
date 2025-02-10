@@ -1,0 +1,21 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,6 +14,7 @@
+ option(ODROID "Set to ON if targeting an ODroid device" ${ODROID})
+ option(GOA_CLONE "Set to ON if targeting GO Advance clones, like RG351p/v, Gameforce Chi, RGB10..." ${GOA_CLONE})
+ option(ANDROID "Set to ON if targeting an Android device" ${ANDROID})
++option(TERMUX "Set to ON if targeting Termux environment" ${TERMUX})
+ option(CHIP "Set to ON if targeting an C.H.I.P. device" ${CHIP})
+ option(AMIGAOS4 "Set to ON if targeting an AmigaOS4/Warp3D platform (activate NOEGL and NOX11)" ${AMIGAOS4})
+ option(NOX11 "Set to ON to not use X11 (creation of context has to be done outside gl4es)" ${NOX11})
+@@ -115,6 +116,10 @@
+     find_library(log-lib log)
+ endif()
+ 
++if(TERMUX)
++    add_definitions(-DNO_GBM -DDEFAULT_ES=2)
++endif()
++
+ #PocketCHIP
+ if(CHIP)
+     add_definitions(-DCHIP)
