@@ -4,6 +4,7 @@ TERMUX_PKG_LICENSE="custom"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="1.7.0-upstream"
 TERMUX_PKG_SRCURL=git+https://gitlab.freedesktop.org/glvnd/libglvnd.git
+TERMUX_PKG_GIT_BRANCH="master"
 TERMUX_PKG_AUTO_UPDATE=false
 TERMUX_PKG_DEPENDS="libc++, libx11, libxext"
 TERMUX_PKG_BUILD_DEPENDS="xorgproto"
