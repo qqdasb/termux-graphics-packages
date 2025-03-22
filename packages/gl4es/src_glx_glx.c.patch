@@ -1,0 +1,38 @@
+--- a/src/glx/glx.c
++++ b/src/glx/glx.c
+@@ -771,8 +771,11 @@
+     }
+ 
+ 	result = egl_eglChooseConfig(eglDisplay, configAttribs, fake->eglConfigs, 64, &fake->eglConfigsCount);
++
++#ifndef NO_GBM
+     if(fake->eglConfigsCount && globals4es.usegbm)
+         fake->eglconfigIdx = FindGBMConfig(eglDisplay, fake->eglConfigs, fake->eglConfigsCount);
++#endif
+ 
+     CheckEGLErrors();
+     if (result != EGL_TRUE || fake->eglConfigsCount == 0) {
+@@ -952,10 +955,12 @@
+         }
+ 
+         result = egl_eglChooseConfig(eglDisplay, configAttribs, fake->eglConfigs, 64, &fake->eglConfigsCount);
++
++        fake->eglconfigIdx = 0;
++#ifndef NO_GBM
+         if(fake->eglConfigsCount && globals4es.usegbm)
+             fake->eglconfigIdx = FindGBMConfig(eglDisplay, fake->eglConfigs, fake->eglConfigsCount);
+-        else
+-            fake->eglconfigIdx = 0;
++#endif
+ 
+         CheckEGLErrors();
+         if (result != EGL_TRUE || fake->eglConfigsCount == 0) {
+@@ -1841,7 +1846,7 @@
+         attr[cur++] = EGL_STENCIL_SIZE;
+         attr[cur++] = 8;
+     }
+-    attr[1] |= (globals4es.usepbuffer)?(/*EGL_PBUFFER_BIT|*/EGL_PIXMAP_BIT):EGL_WINDOW_BIT;
++    attr[1] |= (globals4es.usepbuffer)?(EGL_PBUFFER_BIT/*|EGL_PIXMAP_BIT*/):EGL_WINDOW_BIT;
+ 
+     attr[cur++] = EGL_RENDERABLE_TYPE;
+     attr[cur++] = (hardext.esversion==1)?EGL_OPENGL_ES_BIT:EGL_OPENGL_ES2_BIT;
