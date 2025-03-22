@@ -24,16 +24,18 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dopengl=true
 -Degl=enabled
 -Degl-native-platform=x11
--Dgles1=disabled
+-Dgles1=enabled
 -Dgles2=enabled
 -Dglx=dri
 -Dllvm=enabled
 -Dshared-llvm=enabled
 -Dplatforms=x11,wayland
--Dgallium-drivers=swrast,virgl,zink
--Dosmesa=true
+-Dgallium-drivers=llvmpipe,softpipe,virgl,zink
 -Dglvnd=enabled
 -Dxmlconfig=disabled
+-Dxlib-lease=enabled
+-Dvulkan-beta=true
+-Dvideo-codecs=all
 "
 
 termux_step_post_get_source() {
